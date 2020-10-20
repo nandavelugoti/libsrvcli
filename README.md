@@ -1,5 +1,5 @@
 # libsrvcli
-A barebones library for multi-threaded client server interactions.
+A barebones C++ library for multi-threaded client-server interactions.
 
 ## Dependencies
 - g++
