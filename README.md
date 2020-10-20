@@ -18,9 +18,9 @@ make
 
 ```c++
 ConnectionConfig conConfig(
-    ip,
-    port,
-    protocol
+	ip,
+	port,
+	protocol
 );
 ```
 
@@ -29,12 +29,12 @@ ConnectionConfig conConfig(
 ```c++
 void handleRequest(int sockfd) 
 {
-	// connection accepted from client 
-    // handle incoming requests (e.g. read, write, send , recv, etc.)
+	// connection accepted from client
+	// handle incoming requests (e.g. read, write, send , recv, etc.)
 
-    //...
-    recv(sockfd, ...);
-    //...
+	//...
+	recv(sockfd, ...);
+	//...
 }
 
 int main () 
@@ -55,11 +55,11 @@ int main ()
 void makeRequest(int sockfd) 
 {
 	// connection accepted by server
-    // make requests (e.g. read, write, send , recv, etc.)
+	// make requests (e.g. read, write, send , recv, etc.)
 
 	//...
-    send(sockfd, ...);
-    //...
+	send(sockfd, ...);
+	//...
 }
 
 int main()
