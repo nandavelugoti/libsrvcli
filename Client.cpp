@@ -11,12 +11,21 @@
 
 #include "libsrvcli.hpp"
 
+#ifndef DEBUG_PRINTS
+#define DEBUG_PRINTS 0
+#endif
+
+#if DEBUG_PRINTS
+#define perror(msg) perror(msg)
+#else
+#define perror(msg) 
+#endif
+
 using namespace std;
 
-Client::Client(void (*handler)(int), ConnectionConfig config)
+Client::Client(ConnectionConfig config)
 {
     this->config = config;
-    connectionHandler = handler; 
 }
 
 Client::~Client()
@@ -24,7 +33,7 @@ Client::~Client()
     disconnect();
 }
 
-int Client::establishConnection()
+int Client::connect()
 {
     int yes = 1, rv;
     struct addrinfo hints, *servinfo, *p; 
@@ -37,7 +46,7 @@ int Client::establishConnection()
 
 	if ((rv = getaddrinfo(config.getIP().c_str(), config.getPort().c_str(), &hints, &servinfo)) != 0)
     {
-        cerr << "getaddrinfo:" << gai_strerror(rv) << endl;
+        perror(gai_strerror(rv));
         return -1;
 	}
 
@@ -59,19 +68,19 @@ int Client::establishConnection()
 
     if (p == NULL)
     {
-        cerr << "client: failed to connect" << endl;
+        perror("client: failed to connect");
         return -1;
     }
 
     inet_ntop(p->ai_family, getInAddr((struct sockaddr *)p->ai_addr), s, sizeof s);
     
-    cout << "client: establishing connection to " << s << endl;
+#if DEBUG_PRINTS
+    cout << "client: establishing connectioj to " << s << endl;
+#endif
 
 	freeaddrinfo(servinfo); // all done with this structure
 
-    connectionHandler(sockfd);
-    
-    return 0;
+    return sockfd;
 }
 
 void Client::disconnect()

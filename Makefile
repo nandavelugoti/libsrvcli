@@ -1,6 +1,10 @@
-CC=g++ 
-CFLAGS=-fPIC -c
-LDFLAGS=-Iinclude -lpthread
+CC:=g++ 
+CFLAGS:=-fPIC -c
+LDFLAGS:=-Iinclude -lpthread
+
+ifdef $(DEBUG)
+CFLAGS += -DDEBUG_PRINTS=$(DEBUG)
+endif
 
 libsrvcli.so: server.o client.o
 	$(CC) -shared -o libsrvcli.so server.o client.o $(LDFLAGS)

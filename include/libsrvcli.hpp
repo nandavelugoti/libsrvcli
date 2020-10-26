@@ -35,9 +35,9 @@ class Client
 
 public:
 
-    Client(void (*)(int), ConnectionConfig);
+    Client(ConnectionConfig);
     ~Client();
-    int establishConnection();
+    int connect();
     void disconnect();
 
 private:
