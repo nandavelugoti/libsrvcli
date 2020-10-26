@@ -65,7 +65,16 @@ void makeRequest(int sockfd)
 int main()
 {
 	Client* cli = new Client(&makeRequests, conConfig);
-	if (cli->establishConnection() == -1)
+	int sockfd = cli->connect();
+	if (sockfd == -1)
     	cout << "Error in connecting to node server" << endl;
+	
+	makeRequest(sockfd);
+    
+    //...
+
+    cli->disconnect();
+
+    return 0;
 }
 ```

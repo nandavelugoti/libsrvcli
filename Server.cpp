@@ -14,6 +14,16 @@
 #define MAX_CONNECTIONS 100
 #define BACKLOG_CONNECTIONS 20 
 
+#ifndef DEBUG_PRINTS
+#define DEBUG_PRINTS 0
+#endif
+
+#if DEBUG_PRINTS
+#define perror(msg) perror(msg)
+#else
+#define perror(msg) 
+#endif
+
 using namespace std;
 
 Server::Server(void (*handler)(int), ConnectionConfig config)
@@ -38,7 +48,7 @@ int Server::start() {
 
 	if ((rv = getaddrinfo(NULL, config.getPort().c_str(), &hints, &servinfo)) != 0)
     {
-        cerr << "getaddrinfo:" << gai_strerror(rv) << endl;
+        perror(gai_strerror(rv));
         return -1;
 	}
 
@@ -125,7 +135,9 @@ void Server::acceptConnections()
 
         inet_ntop(their_addr.ss_family, getInAddr((struct sockaddr *)&their_addr), s, sizeof s);
 
+#if DEBUG_PRINTS
         cout << "server: got connection from" << s << endl;
+#endif
 
         connectionsBuffer.enqueue(newfd);
     }
