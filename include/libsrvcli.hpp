@@ -37,7 +37,7 @@ public:
 
     Client(ConnectionConfig);
     ~Client();
-    int connect();
+    int connectToServer();
     void disconnect();
 
 private:

@@ -33,7 +33,7 @@ Client::~Client()
     disconnect();
 }
 
-int Client::connect()
+int Client::connectToServer()
 {
     int yes = 1, rv;
     struct addrinfo hints, *servinfo, *p; 
