@@ -1,6 +1,8 @@
 #ifndef CONNECTIONCONFIG_HPP
 #define CONNECTIONCONFIG_HPP
 
+#include <string>
+
 class ConnectionConfig
 {
     std::string port;
@@ -8,7 +10,6 @@ class ConnectionConfig
     std::string protocol;
 
 public:
-
     ConnectionConfig() {}
 
     ConnectionConfig(std::string ip, std::string port, std::string protocol)
